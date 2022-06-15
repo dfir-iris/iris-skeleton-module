@@ -1,24 +1,13 @@
 #!/usr/bin/env python3
 #
 #
-#  IRIS Skeleton Source Code
-#  Copyright (C) 2022 - DFIR IRIS Team
-#  contact@dfir-iris.org
-#  Created by ekt0 - 2022-06-10
+#  IRIS {{ cookiecutter.artefact }} Source Code
+#  Copyright (C) {% now 'utc', '%Y' %} - {{ cookiecutter.organization }}
+#  {{ cookiecutter.email}}
+#  Created by {{ cookiecutter.organization }} - {% now 'utc', '%Y%m%d' %}
 #
-#  This program is free software; you can redistribute it and/or
-#  modify it under the terms of the GNU Lesser General Public
-#  License as published by the Free Software Foundation; either
-#  version 3 of the License, or (at your option) any later version.
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-#  Lesser General Public License for more details.
-#
-#  You should have received a copy of the GNU Lesser General Public License
-#  along with this program; if not, write to the Free Software Foundation,
-#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#  License {{ cookiecutter.license }}
+
 import hashlib
 import shutil
 import tempfile
@@ -30,7 +19,7 @@ from datetime import datetime
 import iris_interface.IrisInterfaceStatus as InterfaceStatus
 
 
-class SkeletonHandler(object):
+class {{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}Handler(object):
     def __init__(self, mod_config, server_config, evidence_storage, input_data, logger):
         self.mod_config = mod_config
         self.server_config = server_config
@@ -163,8 +152,8 @@ class SkeletonHandler(object):
         out_path = in_path.parent / "out"
 
         if data_type == "<TODO>":
-            skeleton_url = self.mod_config.get('skeleton_url')
-            skeleton_url = self.mod_config.get('skeleton_key')
+            {{ cookiecutter.artefact.lower() }}_url = self.mod_config.get('{{ cookiecutter.artefact.lower() }}_url')
+            {{ cookiecutter.artefact.lower() }}_url = self.mod_config.get('{{ cookiecutter.artefact.lower() }}_key')
             proxies = {
                 "http": self.mod_config.get('splunk_http_proxy'),
                 "https": self.mod_config.get('splunk_https_proxy')
@@ -173,7 +162,7 @@ class SkeletonHandler(object):
             start_time = time.time()
 
             # Do your stuff here
-            self.log.info("Skeleton import")
+            self.log.info("{{ cookiecutter.artefact }} import")
             ret_t = True
 
             end_time = time.time()
@@ -197,7 +186,7 @@ class SkeletonHandler(object):
         :return:
         """
         # This is just an example on how to retrieve the files from IRIS and import/process them
-        self.log.info("Received new skeleton import signal for {}".format(self.case_name))
+        self.log.info("Received new {{ cookiecutter.artefact }} import signal for {}".format(self.case_name))
 
         temp_path = tempfile.TemporaryDirectory()
         shutil.move(str(self.path), temp_path.name)

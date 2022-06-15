@@ -1,0 +1,1 @@
+- Copyright (C) {% now 'utc', '%Y' %} - {{ cookiecutter.organization }} - {{ cookiecutter.email }}

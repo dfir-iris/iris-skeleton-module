@@ -1,24 +1,12 @@
 #!/usr/bin/env python3
 #
 #
-#  IRIS Skeleton Source Code
-#  Copyright (C) 2022 - DFIR IRIS Team
-#  contact@dfir-iris.org
-#  Created by ekt0 - 2022-06-10
+#  IRIS {{ cookiecutter.artefact }} Source Code
+#  Copyright (C) {% now 'utc', '%Y' %} - {{ cookiecutter.organization }}
+#  {{ cookiecutter.email}}
+#  Created by {{ cookiecutter.organization }} - {% now 'utc', '%Y%m%d' %}
 #
-#  This program is free software; you can redistribute it and/or
-#  modify it under the terms of the GNU Lesser General Public
-#  License as published by the Free Software Foundation; either
-#  version 3 of the License, or (at your option) any later version.
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-#  Lesser General Public License for more details.
-#
-#  You should have received a copy of the GNU Lesser General Public License
-#  along with this program; if not, write to the Free Software Foundation,
-#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#  License {{ cookiecutter.license }}
 
 import traceback
 from pathlib import Path
@@ -26,15 +14,15 @@ from pathlib import Path
 import iris_interface.IrisInterfaceStatus as InterfaceStatus
 from iris_interface.IrisModuleInterface import IrisPipelineTypes, IrisModuleInterface, IrisModuleTypes
 
-import iris_skeleton_module.IrisSkeletonConfig as interface_conf
-from iris_skeleton_module.skeleton_handler.skeleton_handler import SkeletonHandler
+import iris_{{ cookiecutter.artefact.lower() }}_module.Iris{{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}Config as interface_conf
+from iris_{{ cookiecutter.artefact.lower() }}_module.{{ cookiecutter.artefact.lower() }}_handler.{{ cookiecutter.artefact.lower() }}_handler import {{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}Handler
 
 
-class IrisSkeletonInterface(IrisModuleInterface):
+class Iris{{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}Interface(IrisModuleInterface):
     """
-    Provide the interface between Iris and SkeletonHandler
+    Provide the interface between Iris and {{ cookiecutter.artefact }}Handler
     """
-    name = "IrisSkeletonInterface"
+    name = "Iris{{ cookiecutter.artefact }}Interface"
     _module_name = interface_conf.module_name
     _module_description = interface_conf.module_description
     _interface_version = interface_conf.interface_version
@@ -46,7 +34,7 @@ class IrisSkeletonInterface(IrisModuleInterface):
 
     def pipeline_handler(self, pipeline_type, pipeline_data):
         """
-        Receive data from the main pipeline and dispatch to Skeleton handler
+        Receive data from the main pipeline and dispatch to {{ cookiecutter.artefact }} handler
         :param pipeline_type:
         :param pipeline_data:
         :return:
@@ -84,13 +72,13 @@ class IrisSkeletonInterface(IrisModuleInterface):
 
                 if configuration.is_success():
 
-                    skeleton_handler = SkeletonHandler(mod_config=self.module_dict_conf,
+                    {{ cookiecutter.artefact }}_handler = {{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}Handler(mod_config=self.module_dict_conf,
                                                        server_config=self.server_dict_conf,
                                                        evidence_storage=self._evidence_storage,
                                                        input_data=input_data,
                                                        logger=self.log)
 
-                    ret = skeleton_handler.import_evidence()
+                    ret = {{ cookiecutter.artefact }}_handler.import_evidence()
                     if not ret:
                         return InterfaceStatus.I2Error(logs=list(self.message_queue))
 
