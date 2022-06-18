@@ -1,3 +1,4 @@
+# Inspired by [python-package-template](https://github.com/TezRomacH/python-package-template)
 """This module is called before project is created."""
 
 import re

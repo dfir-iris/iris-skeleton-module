@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 #
 #
-#  IRIS {{ cookiecutter.artefact }} Source Code
+#  IRIS {{ cookiecutter.keyword }} Source Code
 #  Copyright (C) {% now 'utc', '%Y' %} - {{ cookiecutter.organization }}
 #  {{ cookiecutter.email}}
-#  Created by {{ cookiecutter.organization }} - {% now 'utc', '%Y%m%d' %}
+#  Created by {{ cookiecutter.organization }} - {% now 'utc', '%Y-%m-%d' %}
 #
 #  License {{ cookiecutter.license }}
 
@@ -19,7 +19,7 @@ from datetime import datetime
 import iris_interface.IrisInterfaceStatus as InterfaceStatus
 
 
-class {{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}Handler(object):
+class {{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Handler(object):
     def __init__(self, mod_config, server_config, evidence_storage, input_data, logger):
         self.mod_config = mod_config
         self.server_config = server_config
@@ -152,8 +152,8 @@ class {{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}
         out_path = in_path.parent / "out"
 
         if data_type == "<TODO>":
-            {{ cookiecutter.artefact.lower() }}_url = self.mod_config.get('{{ cookiecutter.artefact.lower() }}_url')
-            {{ cookiecutter.artefact.lower() }}_url = self.mod_config.get('{{ cookiecutter.artefact.lower() }}_key')
+            {{ cookiecutter.keyword.lower() }}_url = self.mod_config.get('{{ cookiecutter.keyword.lower() }}_url')
+            {{ cookiecutter.keyword.lower() }}_url = self.mod_config.get('{{ cookiecutter.keyword.lower() }}_key')
             proxies = {
                 "http": self.mod_config.get('splunk_http_proxy'),
                 "https": self.mod_config.get('splunk_https_proxy')
@@ -162,7 +162,7 @@ class {{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}
             start_time = time.time()
 
             # Do your stuff here
-            self.log.info("{{ cookiecutter.artefact }} import")
+            self.log.info("{{ cookiecutter.keyword }} import")
             ret_t = True
 
             end_time = time.time()
@@ -186,7 +186,7 @@ class {{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}
         :return:
         """
         # This is just an example on how to retrieve the files from IRIS and import/process them
-        self.log.info("Received new {{ cookiecutter.artefact }} import signal for {}".format(self.case_name))
+        self.log.info("Received new {{ cookiecutter.keyword }} import signal for {}".format(self.case_name))
 
         temp_path = tempfile.TemporaryDirectory()
         shutil.move(str(self.path), temp_path.name)

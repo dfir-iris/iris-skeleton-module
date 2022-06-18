@@ -1,3 +1,4 @@
+# Inspired by [python-package-template](https://github.com/TezRomacH/python-package-template)
 """This module is called after project is created."""
 from typing import List
 

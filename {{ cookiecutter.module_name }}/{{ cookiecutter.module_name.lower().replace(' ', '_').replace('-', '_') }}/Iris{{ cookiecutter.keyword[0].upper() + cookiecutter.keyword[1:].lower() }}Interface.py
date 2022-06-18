@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 #
 #
-#  IRIS {{ cookiecutter.artefact }} Source Code
+#  IRIS {{ cookiecutter.keyword }} Source Code
 #  Copyright (C) {% now 'utc', '%Y' %} - {{ cookiecutter.organization }}
 #  {{ cookiecutter.email}}
-#  Created by {{ cookiecutter.organization }} - {% now 'utc', '%Y%m%d' %}
+#  Created by {{ cookiecutter.organization }} - {% now 'utc', '%Y-%m-%d' %}
 #
 #  License {{ cookiecutter.license }}
 
@@ -14,15 +14,15 @@ from pathlib import Path
 import iris_interface.IrisInterfaceStatus as InterfaceStatus
 from iris_interface.IrisModuleInterface import IrisPipelineTypes, IrisModuleInterface, IrisModuleTypes
 
-import iris_{{ cookiecutter.artefact.lower() }}_module.Iris{{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}Config as interface_conf
-from iris_{{ cookiecutter.artefact.lower() }}_module.{{ cookiecutter.artefact.lower() }}_handler.{{ cookiecutter.artefact.lower() }}_handler import {{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}Handler
+import iris_{{ cookiecutter.keyword.lower() }}_module.Iris{{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Config as interface_conf
+from iris_{{ cookiecutter.keyword.lower() }}_module.{{ cookiecutter.keyword.lower() }}_handler.{{ cookiecutter.keyword.lower() }}_handler import {{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Handler
 
 
-class Iris{{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}Interface(IrisModuleInterface):
+class Iris{{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Interface(IrisModuleInterface):
     """
-    Provide the interface between Iris and {{ cookiecutter.artefact }}Handler
+    Provide the interface between Iris and {{ cookiecutter.keyword }}Handler
     """
-    name = "Iris{{ cookiecutter.artefact }}Interface"
+    name = "Iris{{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Interface"
     _module_name = interface_conf.module_name
     _module_description = interface_conf.module_description
     _interface_version = interface_conf.interface_version
@@ -34,7 +34,7 @@ class Iris{{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower(
 
     def pipeline_handler(self, pipeline_type, pipeline_data):
         """
-        Receive data from the main pipeline and dispatch to {{ cookiecutter.artefact }} handler
+        Receive data from the main pipeline and dispatch to {{ cookiecutter.keyword }} handler
         :param pipeline_type:
         :param pipeline_data:
         :return:
@@ -72,13 +72,13 @@ class Iris{{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower(
 
                 if configuration.is_success():
 
-                    {{ cookiecutter.artefact }}_handler = {{ cookiecutter.artefact[0].upper() + cookiecutter.artefact[1:].lower() }}Handler(mod_config=self.module_dict_conf,
+                    {{ cookiecutter.keyword }}_handler = {{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Handler(mod_config=self.module_dict_conf,
                                                        server_config=self.server_dict_conf,
                                                        evidence_storage=self._evidence_storage,
                                                        input_data=input_data,
                                                        logger=self.log)
 
-                    ret = {{ cookiecutter.artefact }}_handler.import_evidence()
+                    ret = {{ cookiecutter.keyword }}_handler.import_evidence()
                     if not ret:
                         return InterfaceStatus.I2Error(logs=list(self.message_queue))
 
