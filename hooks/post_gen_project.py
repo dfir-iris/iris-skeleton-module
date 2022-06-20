@@ -8,9 +8,11 @@ from shutil import move, rmtree
 
 # Project root directory
 MODULE_DIRECTORY = Path.cwd().absolute()
+HELPER_DIR = MODULE_DIRECTORY / Path("{{ cookiecutter.module_name.lower().replace(' ', '_').replace('-', '_') }}",
+                                     "{{ cookiecutter.keyword.lower() }}_handler")
 MODULE_NAME = "{{ cookiecutter.module_name }}"
 MODULE_MODULE = "{{ cookiecutter.module_name.lower().replace(' ', '_').replace('-', '_') }}"
-CREATE_EXAMPLE_TEMPLATE = "{{ cookiecutter.create_example_template }}"
+SUPPORT = "{{ cookiecutter.support }}"
 
 # Values to generate correct license
 LICENSE = "{{ cookiecutter.license }}"
@@ -38,6 +40,17 @@ def generate_license(directory: Path, licence: str) -> None:
     rmtree(str(directory / "_licenses"))
 
 
+def pick_support(directory: Path, support: str) -> None:
+    """Generate the support template (either processor or pipeline) for the module.
+    Args:
+        directory: path to the project directory
+        support: chosen support
+    """
+    move(str(directory / "_templates" / support / "{{ cookiecutter.keyword.lower() }}_handler.py"),
+         str(directory / "{{ cookiecutter.keyword.lower() }}_handler.py"))
+    rmtree(str(directory / "_templates"))
+
+
 def print_futher_instuctions(module_name: str, github: str) -> None:
     """Show user what to do next after project creation.
     Args:
@@ -58,12 +71,16 @@ def print_futher_instuctions(module_name: str, github: str) -> None:
         $ git branch -M main
         $ git remote add origin https://github.com/{github}/{module_name}.git
         $ git push -u origin main
+    5) grep -r "TODO" # to check what parts you should code
+    For more information on how to develop IRIS modules, please consider reading the documentation: https://docs.dfir-iris.org/development/modules/.
+    Good luck!
     """
     print(textwrap.dedent(message))
 
 
 def main() -> None:
     generate_license(directory=MODULE_DIRECTORY, licence=licences_dict[LICENSE])
+    pick_support(directory=HELPER_DIR, support=SUPPORT)
     print_futher_instuctions(module_name=MODULE_NAME, github=GITHUB_USER)
 
 

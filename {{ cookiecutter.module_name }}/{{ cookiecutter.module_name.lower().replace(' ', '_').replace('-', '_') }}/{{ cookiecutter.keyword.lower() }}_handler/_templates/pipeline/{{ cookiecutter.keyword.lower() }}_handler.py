@@ -23,8 +23,9 @@ class {{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Ha
     def __init__(self, mod_config, server_config, evidence_storage, input_data, logger):
         self.mod_config = mod_config
         self.server_config = server_config
-        self.evidence_storage = evidence_storage
+        self.{{ cookiecutter.keyword.lower() }} = self.get_{{ cookiecutter.keyword.lower() }}_instance()
         self.log = logger
+        self.evidence_storage = evidence_storage
 
         self.user = input_data['user']
         self.user_id = input_data['user_id']
@@ -32,6 +33,27 @@ class {{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Ha
         self.path = Path(input_data['path'])
         self.case_id = input_data['case_id']
         self.is_update = input_data['is_update']
+
+    def get_{{ cookiecutter.keyword.lower() }}_instance(self):
+        """
+        Returns an {{ cookiecutter.keyword }} API instance depending if the key is premium or not
+
+        :return: { cookiecutter.keyword }} Instance
+        """
+        url = self.mod_config.get('{{ cookiecutter.keyword.lower() }}_url')
+        key = self.mod_config.get('{{ cookiecutter.keyword.lower() }}_key')
+        proxies = {}
+
+        if self.server_config.get('http_proxy'):
+            proxies['https'] = self.server_config.get('HTTPS_PROXY')
+
+        if self.server_config.get('https_proxy'):
+            proxies['http'] = self.server_config.get('HTTP_PROXY')
+
+        # TODO!
+        # Here get your {{ cookiecutter.keyword }} instance and return it
+        # ex: return {{ cookiecutter.keyword.lower() }}Api(url, key)
+        return "<TODO>"
 
     def _ret_task_success(self, msg=""):
         """
@@ -77,6 +99,7 @@ class {{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Ha
                         if not file_registered:
 
                             is_valid = True
+                            # TODO!
                             # Here detect if the files are suited for this module (e.g EVTX files for EVTX module)
                             if entry.suffix == ".txt":
 
@@ -152,17 +175,14 @@ class {{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Ha
         out_path = in_path.parent / "out"
 
         if data_type == "<TODO>":
-            {{ cookiecutter.keyword.lower() }}_url = self.mod_config.get('{{ cookiecutter.keyword.lower() }}_url')
-            {{ cookiecutter.keyword.lower() }}_url = self.mod_config.get('{{ cookiecutter.keyword.lower() }}_key')
-            proxies = {
-                "http": self.mod_config.get('splunk_http_proxy'),
-                "https": self.mod_config.get('splunk_https_proxy')
-            }
 
             start_time = time.time()
 
+            # TODO!
             # Do your stuff here
-            self.log.info("{{ cookiecutter.keyword }} import")
+            # Example :
+            # self.{{ cookiecutter.keyword.lower() }}.process_evidence(in_path, out_path)
+            self.log.info("<TODO> {{ cookiecutter.keyword }} import")
             ret_t = True
 
             end_time = time.time()

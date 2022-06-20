@@ -8,4 +8,4 @@
 #
 #  License {{ cookiecutter.license }}
 
-__iris_module_interface = "Iris{{ cookiecutter.keyword }}Interface"
+__iris_module_interface = "Iris{{ cookiecutter.keyword[0].upper() + cookiecutter.keyword[1:].lower() }}Interface"

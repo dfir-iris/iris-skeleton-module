@@ -7,5 +7,5 @@
   "github_name": "{{ cookiecutter.organization.lower().replace(' ', '_').replace('-', '_') }}",
   "email": "hello@{{ cookiecutter.organization.lower().replace(' ', '-') }}.com",
   "version": "0.1.0",
-  "create_example_template": ["pipeline"]
+  "support": ["pipeline", "processor"]
 }
