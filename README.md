@@ -8,7 +8,7 @@ This tool is in its early phase. Other input variables will be integrated.
 
 ### Installation
 
-> Python requirements : >3.7
+> Python requirements : >=3.9 is advised, but you can try with Python >=3.7, I just did not try
 
 First, install pip and cookiecutter:
 ```commandline
